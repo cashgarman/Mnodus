@@ -1,0 +1,162 @@
+{
+	"Entities":
+	{
+		"Metadata":
+		{
+			"Hidden": true,
+			"DataSource":
+			{
+				"Type": "MongoDB",
+					"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "test_dataset",
+					"CollectionName": "Metadata"
+				}
+			}
+		},
+		"City":
+		{
+			"DataSource":
+			{
+				"Type": "MongoDB",
+				"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "test_dataset",
+					"CollectionName": "City"
+				}
+			},
+			"Filters":
+			[
+				{
+					"Name": "Name",
+					"Type": "String",
+					"FieldName": "name"
+				}
+			],
+			"Metrics":
+			[
+			]
+		},
+		"Company":
+		{
+			"DataSource":
+			{
+				"Type": "MongoDB",
+				"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "test_dataset",
+					"CollectionName": "Company"
+				}
+			},
+			"Filters":
+			[
+				{
+					"Name": "Name",
+					"Type": "String",
+					"FieldName": "name"
+				}
+			],
+			"Metrics":
+			[
+				{
+					"Name": "Number of Shares",
+					"FieldName": "initial_shares"
+				},
+				{
+					"Name": "Value of Shares",
+					"FieldName": "share_opening_value"
+				}
+			]
+		},
+		"Industry":
+		{
+			"DataSource":
+			{
+				"Type": "MongoDB",
+				"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "test_dataset",
+					"CollectionName": "Industry"
+				}
+			},
+			"Filters":
+			[
+				{
+					"Name": "Name",
+					"Type": "String",
+					"FieldName": "name"
+				}
+			],
+			"Metrics":
+			[
+			]
+		},
+		"Person":
+		{
+			"DataSource":
+			{
+				"Type": "MongoDB",
+				"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "test_dataset",
+					"CollectionName": "Person"
+				}
+			},
+			"Filters":
+			[
+				{
+					"Name": "Name",
+					"Type": "String",
+					"FieldName": "name"
+				}
+			],
+			"Metrics":
+			[
+			]
+		}
+	},
+	"Relationships":
+	{
+		"Person Involved with Company":
+		{
+			"Start": "Person",
+			"End": "Company",
+			"SourceEntity": "Person",
+			"TargetEntity": "Company",
+			"Metadata":
+			{
+				"SourceField": "company_id",
+				"TargetField": "_id"
+			}
+		},
+		"Company in Industry":
+		{
+			"Start": "Company",
+			"End": "Industry",
+			"SourceEntity": "Company",
+			"TargetEntity": "Industry",
+			"Metadata":
+			{
+				"SourceField": "industry_id",
+				"TargetField": "_id"
+			}
+		},
+		"Company has Presence in City":
+		{
+			"Start": "Company",
+			"End": "City",
+			"SourceEntity": "Company",
+			"TargetEntity": "City",
+			"Metadata":
+			{
+				"SourceField": "city_id",
+				"TargetField": "_id"
+			}
+		}
+	}
+}

@@ -1,0 +1,204 @@
+﻿//#pragma kernel AttractParticlesToCenter
+//#pragma kernel RepelParticlesFromCenter
+
+#include "Node.cginc"
+
+#define MAX_GROUPS 1024
+
+RWStructuredBuffer<Node> nodes;
+RWStructuredBuffer<NodeLink> nodeLinks;
+RWStructuredBuffer<Group> groups;
+RWStructuredBuffer<float3> graphCenter;
+
+float repulsionConstant;
+float centerAttract;
+float groupRepulsionConstant;
+float damping;
+float maxAccel;
+float settleSpeed;
+float desiredNodeDistance;
+float nodeRelaxationDivisor;
+float groupAttract;
+int numUpdatesPerFrame;
+float deltaTime;
+float3 center;
+
+void ClampAccel(uint index)
+{
+	float accelMag = length(nodes[index].acceleration);
+	if(accelMag > maxAccel)
+		nodes[index].acceleration = normalize(nodes[index].acceleration) * maxAccel;
+}
+
+void VerletIntegrate(uint i)
+{
+	// Calculate velocity
+	nodes[i].velocity = nodes[i].position - nodes[i].prevPosition;
+
+	// Dampen velocity
+	nodes[i].velocity = pow(1.0 - damping, deltaTime) * nodes[i].velocity;
+	nodes[i].acceleration = pow(1.0 - damping, deltaTime) * nodes[i].acceleration;
+
+	// Calculate new position
+	float3 tempPosition = nodes[i].position;
+	nodes[i].position += nodes[i].velocity + nodes[i].acceleration * deltaTime * deltaTime;
+	nodes[i].prevPosition = tempPosition;
+}
+
+void RelaxConstraint(uint a, uint b, float distanceFactor)
+{
+	float3 delta = nodes[a].position - nodes[b].position;
+	float3 direction = normalize(delta);
+	float distance = length(delta);
+	float r = distance - desiredNodeDistance * distanceFactor;
+
+	// Relax the attraction constraint
+	nodes[a].position -= (direction * r / 2) * deltaTime;
+	nodes[b].position += (direction * r / 2) * deltaTime;
+}
+
+Group GetGroupByID(int id)
+{
+	for(uint i = 0; i < MAX_GROUPS; ++i)
+		if(groups[i].id == id)
+			return groups[i];
+
+	Group noGroup;
+	return noGroup;
+}
+
+void AttractToPoint(uint nodeIndex, float3 _point, float force)
+{
+	float3 delta = _point - nodes[nodeIndex].position;
+	float3 direction = normalize(delta);
+	float centerDistance = length(delta);
+	nodes[nodeIndex].force += force * direction;
+}
+
+#pragma kernel ForceDirectedGraph
+[numthreads(512, 1, 1)]
+void ForceDirectedGraph(uint3 id : SV_DispatchThreadID)
+{
+	uint index = id.x;
+
+	if(nodes[index].isStatic == 1)
+		return;
+
+	uint numNodes, nodeStride;
+	nodes.GetDimensions(numNodes, nodeStride);
+
+	uint numNodeLinks, nodeLinkStride;
+	nodeLinks.GetDimensions(numNodeLinks, nodeLinkStride);
+	
+	if(numNodes == 0)
+		return;
+
+	for(uint frame = 0; frame < numUpdatesPerFrame; ++frame)
+	{
+		nodes[index].force = float3(0, 0, 0);
+
+		// Attract to the center
+		float3 centerDelta = center - nodes[index].position;
+		float3 dir = normalize(centerDelta);
+		float centerDistance = length(centerDelta);
+		nodes[index].force += centerAttract * dir;
+
+		// Relax the constraints
+		for(uint i = 0; i < numNodeLinks; ++i)
+			if(nodeLinks[i].b == index)
+				RelaxConstraint(nodeLinks[i].a, nodeLinks[i].b, nodeLinks[i].attractFactor);
+
+		// Repel from all other nodes
+		for(uint i = 0; i < numNodes; ++i)
+		{
+			if(i == index)
+				continue;
+
+			float3 delta = nodes[i].position - nodes[index].position;
+			float distance = length(delta);
+			float3 direction = normalize(delta);
+
+			if(distance > 0)
+				nodes[index].force += direction * -(repulsionConstant / (distance * distance)) * nodes[i].mass;
+		}
+
+		// If the node is in a group
+		/*if(nodes[index].group != -1)
+		{
+			// Get the number of groups
+			uint numGroups, groupStride;
+			groups.GetDimensions(numGroups, groupStride);
+
+			// Attract the node to the center of its group
+			AttractToPoint(index, GetGroupByID(nodes[index].group).center, groupAttract);
+
+			// Repulse the group from other groups
+			for(uint i = 0; i < numGroups; ++i)
+				if(groups[i].id != nodes[index].group)
+				{
+					float3 delta = groups[i].center - nodes[index].position;
+					float distance = length(delta);
+					float3 direction = normalize(delta);
+
+					if(distance > 0)
+						nodes[index].force += direction * -(groupRepulsionConstant / distance);
+				}
+		}*/
+
+		// Calculate the node's acceleration
+		nodes[index].acceleration += nodes[index].force / nodes[index].mass;
+
+		// Clamp the acceleration
+		ClampAccel(index);
+
+		// Integrate
+		VerletIntegrate(index);
+
+		// Settle node if it's slow enough
+		if(length(nodes[index].velocity) < settleSpeed)
+			nodes[index].isStatic = 1;
+	}
+}
+
+#pragma kernel CalculateNodeCenters
+[numthreads(1, 1, 1)]
+void CalculateNodeCenters(uint3 id : SV_DispatchThreadID)
+{
+	uint numGroups, groupStride;
+	groups.GetDimensions(numGroups, groupStride);
+
+	uint numNodes, nodeStride;
+	nodes.GetDimensions(numNodes, nodeStride);
+
+	for(uint i = 0; i < numNodes; ++i)
+
+	for(uint i = 0; i < numGroups; ++i)
+	{
+		groups[i].center = float3(0, 0, 0);
+
+		int numNodesInGroup = 0;
+		for(uint j = 0; j < numNodes; ++j)
+			if(nodes[j].group == groups[i].id)
+			{
+				groups[i].center += nodes[j].position;
+				++numNodesInGroup;
+			}
+		groups[i].center /= numNodesInGroup;
+	}
+}
+
+/*
+#pragma kernel CalculateGraphCenter
+[numthreads(1, 1, 1)]
+void CalculateGraphCenter(uint3 id : SV_DispatchThreadID)
+{
+	uint numNodes, nodeStride;
+	nodes.GetDimensions(numNodes, nodeStride);
+
+	float3 center = float3(0, 0, 0);
+	for(uint i = 0; i < numNodes; ++i)
+		nodes[i].position += center;
+
+	graphCenter[0] = center / numNodes;
+}
+*/

@@ -1,0 +1,52 @@
+city_id,city_name,city_state,city_country,city_lat,city_long
+1,"Arnprior, Ontario",ON,Canada,45.433333,-76.35
+2,Brampton,ON,Canada,43.683333,-79.766667
+3,Bridgetown,,Barbados,13.105833,-59.613056
+4,Brossard,QC,Canada,45.466667,-73.45
+5,Burlington,ON,Canada,43.316667,-79.8
+6,Burnaby,BC,Canada,49.266667,-122.966667
+7,Calgary,AB,Canada,51.05,-114.066667
+8,Canoe,BC,Canada,50.75,-119.233333
+9,Centennial,CO,USA,39.590568,-104.869118
+10,Chester Basin,NS,Canada,44.566439,-64.304769
+11,Chilliwack,BC,Canada,49.157722,-121.950917
+12,Delta,BC,Canada,49.084722,-123.058611
+13,Dubai,,United Arab Emirates,25.263056,55.297222
+14,Flin Flon,MB,Canada,54.768056,-101.864167
+15,Kelowna,BC,Canada,49.8801,-119.4436
+16,LaSalle,QC,Canada,45.428568,-73.663416
+17,Lethbridge,AB,Canada,49.694167,-112.832778
+18,Lima,,Peru,-12.043333,-77.028333
+19,London,ON,Canada,42.9837,-81.2497
+20,Los Angeles,CA,USA,34.05,-118.25
+21,Markham,ON,Canada,43.883333,-79.25
+22,Mississauga,ON,Canada,43.6,-79.65
+23,Montreal,QC,Canada,45.5,-73.566667
+24,New York,NY,USA,40.7127,-74.0059
+25,Newmarket,ON,Canada,44.05,-79.466667
+26,North Vancouver,BC,Canada,49.316667,-123.066667
+27,North York,ON,Canada,43.7797,-79.4156
+28,Orleans,ON,Canada,45.467,-75.517
+29,Ottawa,ON,Canada,45.416667,-75.683333
+30,Plano,TX,USA,33.016667,-96.683333
+31,Port Coquitlam,BC,Canada,49.2625,-122.781111
+32,Quebec City,QC,Canada,46.816667,-71.216667
+33,Reno,NV,USA,39.527222,-119.821944
+34,Richmond,BC,Canada,49.166667,-123.133333
+35,Road Town,,British Virgin Islands,18.431389,-64.623056
+36,Saint John,NB,Canada,45.280556,-66.076111
+37,Santiago,,Chile,-33.45,-70.666667
+38,Saskatoon,SK,Canada,52.133333,-106.683333
+39,Scarborough,ON,Canada,43.7737,-79.2446
+40,Hong Kong,,Hong Kong,22.3,114.2
+41,Spring,TX,USA,30.054167,-95.386944
+42,Stourport-on-Severn,,UK,52.34182,-2.27624
+43,Thunder Bay,ON,Canada,48.382222,-89.246111
+44,Toronto,ON,Canada,43.7,-79.4
+0,unknown,,,0,0
+45,Vancouver,BC,Canada,49.25,-123.1
+46,Vernon,BC,Canada,50.267,-119.272
+47,Wayne,PA,USA,40.043889,-75.387778
+48,Winnipeg,MB,Canada,49.899444,-97.139167
+49,Wolfville,NS,Canada,45.083333,-64.366667
+50,Woodbrige,ON,Canada,43.785064,-79.593319

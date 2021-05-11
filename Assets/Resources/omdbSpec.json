@@ -1,0 +1,224 @@
+{
+	"Entities":
+	{
+		"Movies":
+		{
+			"DataSource":
+			{
+				"Type": "MongoDB",
+				"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "omdb",
+					"CollectionName": "movies"
+				}
+			},
+			"Filters":
+			[
+				{
+					"Name": "Title",
+					"Type": "String",
+					"FieldName": "title"
+				}
+			],
+			"Metrics":
+			[
+			]
+		},
+		"Genres":
+		{
+			"DataSource":
+			{
+				"Type": "MongoDB",
+				"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "omdb",
+					"CollectionName": "genres"
+				}
+			},
+			"Filters":
+			[
+				{
+					"Name": "Name",
+					"Type": "String",
+					"FieldName": "name"
+				}
+			],
+			"Metrics":
+			[
+			]
+		},
+		"Cast":
+		{
+			"DataSource":
+			{
+				"Type": "MongoDB",
+				"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "omdb",
+					"CollectionName": "cast"
+				}
+			},
+			"Filters":
+			[
+				{
+					"Name": "Name",
+					"Type": "String",
+					"FieldName": "name"
+				}
+			],
+			"Metrics":
+			[
+			]
+		},
+		"Years":
+		{
+			"DataSource":
+			{
+				"Type": "MongoDB",
+				"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "omdb",
+					"CollectionName": "years"
+				}
+			},
+			"Filters":
+			[
+				{
+					"Name": "Year",
+					"Type": "Int",
+					"FieldName": "name"
+				}
+			],
+			"Metrics":
+			[
+			]
+		},
+		"Directors":
+		{
+			"DataSource":
+			{
+				"Type": "MongoDB",
+				"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "omdb",
+					"CollectionName": "directors"
+				}
+			},
+			"Filters":
+			[
+				{
+					"Name": "Name",
+					"Type": "String",
+					"FieldName": "name"
+				}
+			],
+			"Metrics":
+			[
+			]
+		},
+		"Writers":
+		{
+			"DataSource":
+			{
+				"Type": "MongoDB",
+				"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "omdb",
+					"CollectionName": "writers"
+				}
+			},
+			"Filters":
+			[
+				{
+					"Name": "Name",
+					"Type": "String",
+					"FieldName": "name"
+				}
+			],
+			"Metrics":
+			[
+			]
+		},
+		"Languages":
+		{
+			"DataSource":
+			{
+				"Type": "MongoDB",
+				"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "omdb",
+					"CollectionName": "languages"
+				}
+			},
+			"Filters":
+			[
+				{
+					"Name": "Name",
+					"Type": "String",
+					"FieldName": "name"
+				}
+			],
+			"Metrics":
+			[
+			]
+		}
+	},
+	"Relationships":
+	{
+		"Movie in Genre":
+		{
+			"Start": "Movies",
+			"End": "Genres",
+
+			"Metadata":
+			{
+				"Find": "genres._id",
+				"In": "movies.genres",
+				"Return": "movies._id"
+			}
+		},
+		"Movie released in Year":
+		{
+			"Start": "Movies",
+			"End": "Years",
+
+			"Metadata":
+			{
+				"Find": "years._id",
+				"In": "movies.year",
+				"Return": "movies._id"
+			}
+		},
+		"Actor was in Movie":
+		{
+			"Start": "Cast",
+			"End": "Movies",
+
+			"Metadata":
+			{
+				"Find": "cast._id",
+				"In": "movies.cast",
+				"Return": "cast._id"
+			}
+		},
+		"Director directed Movie":
+		{
+			"Start": "Directors",
+			"End": "Movies",
+
+			"Metadata":
+			{
+				"Find": "directors._id",
+				"In": "movies.directors",
+				"Return": "directors._id"
+			}
+		}
+	}
+}

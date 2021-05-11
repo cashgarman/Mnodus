@@ -1,0 +1,57 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "objectType": "City",
+      "position": {
+        "x": 857.8182,
+        "y": 760.009033
+      },
+      "filters": [
+        {
+          "entityFilter": {
+            "name": "Name",
+            "type": 0,
+            "fieldName": "name",
+            "trueLabel": null,
+            "falseLabel": null
+          },
+          "stringValue": "Vancouver",
+          "intValue": 0,
+          "booleanValue": false,
+          "greaterThan": false,
+          "lessThan": false,
+          "equalTo": false
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "objectType": "Person",
+      "position": {
+        "x": 837.8182,
+        "y": 483.645447
+      },
+      "filters": []
+    },
+    {
+      "id": 5,
+      "objectType": "Company",
+      "position": {
+        "x": 1256.0,
+        "y": 621.827148
+      },
+      "filters": []
+    }
+  ],
+  "links": [
+    {
+      "start": 6,
+      "end": 5
+    },
+    {
+      "start": 5,
+      "end": 0
+    }
+  ]
+}

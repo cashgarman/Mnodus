@@ -1,0 +1,11 @@
+Invoicing
+Invoice
+Accounts
+Conference
+HR
+Paycheque
+Memo
+Request
+Meeting
+Follow Up
+Vacation

@@ -1,0 +1,375 @@
+{
+	"Entities":
+	{
+		"Country":
+		{
+			"DataSource":
+			{
+				"Type": "MongoDB",
+				"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "test_dataset",
+					"CollectionName": "countries"
+				}
+			},
+			"Filters":
+			[
+				{
+					"Name": "Name",
+					"Type": "String",
+					"FieldName": "name"
+				}
+			],
+			"Metrics":
+			[
+				{
+					"Name": "Number of Companies",
+					"FieldName": "numCompanies"
+				},
+				{
+					"Name": "Number of Sites",
+					"FieldName": "numSites"
+				},
+				{
+					"Name": "Total Revenue",
+					"FieldName": "totalRevenue"
+				},
+				{
+					"Name": "Total People",
+					"FieldName": "totalPeople"
+				}
+			]
+		},
+		"Industry":
+		{
+			"DataSource":
+			{
+				"Type": "MongoDB",
+				"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "test_dataset",
+					"CollectionName": "industries"
+				}
+			},
+			"Filters":
+			[
+				{
+					"Name": "Name",
+					"Type": "String",
+					"FieldName": "name"
+				}
+			],
+			"Metrics":
+			[
+				{
+					"Name": "Number of Companies",
+					"FieldName": "numCompanies"
+				},
+				{
+					"Name": "Number of Sites",
+					"FieldName": "numSites"
+				},
+				{
+					"Name": "Total Revenue",
+					"FieldName": "totalRevenue"
+				},
+				{
+					"Name": "Total People",
+					"FieldName": "totalPeople"
+				}
+			]
+		},
+		"Company":
+		{
+			"DataSource":
+			{
+				"Type": "MongoDB",
+				"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "test_dataset",
+					"CollectionName": "companies"
+				}
+			},
+			"Filters":
+			[
+				{
+					"Name": "Name",
+					"Type": "String",
+					"FieldName": "name"
+				},
+				{
+					"Name": "Number of Sites",
+					"Type": "Int",
+					"FieldName": "numSites"
+				}
+			],
+			"Metrics":
+			[
+				{
+					"Name": "Number of Sites",
+					"FieldName": "numSites"
+				},
+				{
+					"Name": "Number of Employees",
+					"FieldName": "numEmployees"
+				},
+				{
+					"Name": "Total Revenue",
+					"FieldName": "totalRevenue"
+				}
+			]
+		},
+		"Site":
+		{
+			"DataSource":
+			{
+				"Type": "MongoDB",
+				"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "test_dataset",
+					"CollectionName": "sites"
+				}
+			},
+			"Filters":
+			[
+				{
+					"Name": "Employees",
+					"Type": "Int",
+					"FieldName": "numEmployees"
+				}
+			],
+			"Metrics":
+			[
+				{
+					"Name": "Number of Employees",
+					"FieldName": "numEmployees"
+				},
+				{
+					"Name": "Total Revenue",
+					"FieldName": "totalRevenue"
+				},
+				{
+					"Name": "Average Employee Performance",
+					"FieldName": "averageEmployeePerformance"
+				}
+			]
+		},
+		"Person":
+		{
+			"DataSource":
+			{
+				"Type": "MongoDB",
+				"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "test_dataset",
+					"CollectionName": "people"
+				}
+			},
+			"Filters":
+			[
+				{
+					"Name": "Name",
+					"Type": "String",
+					"FieldName": "name"
+				},
+				{
+					"Name": "Gender",
+					"Type": "Boolean",
+					"FieldName": "isMale",
+					"TrueLabel": "Male",
+					"FalseLabel": "Female"
+				},
+				{
+					"Name": "Age",
+					"Type": "Int",
+					"FieldName": "age"
+				},
+				{
+					"Name": "Job",
+					"Type": "String",
+					"FieldName": "job"
+				},
+				{
+					"Name": "Salary",
+					"Type": "Int",
+					"FieldName": "salary"
+				}
+			],
+			"Metrics":
+			[
+				{
+					"Name": "Age",
+					"FieldName": "age"
+				},
+				{
+					"Name": "Salary",
+					"FieldName": "salary"
+				},
+				{
+					"Name": "Performance",
+					"FieldName": "performance"
+				}
+			]
+		},
+		"Email":
+		{
+			"DataSource":
+			{
+				"Type": "MongoDB",
+				"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "test_dataset",
+					"CollectionName": "emails"
+				}
+			},
+		}
+	},
+	"Relationships":
+	{
+		"Person Lives in Country":
+		{
+			"SourceEntity": "Person",
+			"TargetEntity": "Country",
+			"Metadata":
+			{
+				"SourceField": "homeCountryID",
+				"TargetField": "_id"
+			}
+		},
+		"Person Has Lived in Country":
+		{
+			"SourceEntity": "Person",
+			"TargetEntity": "Country",
+			"Metadata":
+			{
+				"SourceField": "homeCountryID",
+				"TargetField": "_id"
+			}
+		},
+		"Person Can Visit Country":
+		{
+			"SourceEntity": "Person",
+			"TargetEntity": "Country",
+			"Metadata":
+			{
+				"SourceField": "homeCountryID",
+				"TargetField": "_id"
+			}
+		},
+		"Person Works at Company":
+		{
+			"SourceEntity": "Person",
+			"TargetEntity": "Company",
+			"Metadata":
+			{
+				"SourceField": "companyID",
+				"TargetField": "_id"
+			}
+		},
+		"Person Works at Site":
+		{
+			"SourceEntity": "Person",
+			"TargetEntity": "Site",
+			"Metadata":
+			{
+				"SourceField": "siteID",
+				"TargetField": "_id"
+			}
+		},
+		"Person Works in Industry":
+		{
+			"SourceEntity": "Person",
+			"TargetEntity": "Industry",
+			"Metadata":
+			{
+				"SourceField": "industryID",
+				"TargetField": "_id"
+			}
+		},
+		"Site is in Country":
+		{
+			"SourceEntity": "Site",
+			"TargetEntity": "Country",
+			"Metadata":
+			{
+				"SourceField": "countryID",
+				"TargetField": "_id"
+			}
+		},
+		"Site is in Industry":
+		{
+			"SourceEntity": "Site",
+			"TargetEntity": "Industry",
+			"Metadata":
+			{
+				"SourceField": "industryID",
+				"TargetField": "_id"
+			}
+		},
+		"Site is Owned by Company":
+		{
+			"SourceEntity": "Site",
+			"TargetEntity": "Company",
+			"Metadata":
+			{
+				"SourceField": "companyID",
+				"TargetField": "_id"
+			}
+		},
+		"Company is in Industry":
+		{
+			"SourceEntity": "Company",
+			"TargetEntity": "Industry",
+			"Metadata":
+			{
+				"SourceField": "industryID",
+				"TargetField": "_id"
+			}
+		},
+		"Company has Sites in Country":
+		{
+			"SourceEntity": "Company",
+			"TargetEntity": "Country",
+			"Metadata":
+			{
+				"SourceField": "countryIDs",
+				"TargetField": "_id"
+			}
+		},
+		"Same Company":
+		{
+			"SourceEntity": "Person",
+			"TargetEntity": "Person",
+			"Metadata":
+			{
+				"SourceField": "companyID",
+				
+				"IntermediateEntity": "Company",
+				"IntermediateField": "_id",
+				"FollowingField": "_id",
+
+				"TargetField": "companyID"
+			}
+		},
+		"Same Site":
+		{
+			"SourceEntity": "Person",
+			"TargetEntity": "Person",
+			"Metadata":
+			{
+				"SourceField": "siteID",
+
+				"IntermediateEntity": "Site",
+				"IntermediateField": "_id",
+
+				"TargetField": "siteID"
+			}
+		}
+	}
+}

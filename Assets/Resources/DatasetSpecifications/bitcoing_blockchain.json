@@ -1,0 +1,29 @@
+{
+	"Entities":
+	{
+		"City":
+		{
+			"DataSource":
+			{
+				"Type": "MongoDB",
+				"Metadata":
+				{
+					"URL": "mongodb://localhost:27017/",
+					"DatabaseName": "test_dataset",
+					"CollectionName": "City"
+				}
+			},
+			"Filters":
+			[
+				{
+					"Name": "Name",
+					"Type": "String",
+					"FieldName": "name"
+				}
+			],
+			"Metrics":
+			[
+			]
+		}
+	}
+}

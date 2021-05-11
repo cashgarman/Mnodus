@@ -1,0 +1,107 @@
+{
+	"Nodes":
+	[
+		{
+			"Name": "Country",
+			"Datasource":
+			{
+				"Type": "MongoDBCollection",
+				"DB": "mongodb://localhost:27017/",
+				"Collection": "countries"
+			}
+		},
+		{
+			"Name": "Industry",
+			"Datasource":
+			{
+				"Type": "MongoDBCollection",
+				"DB": "mongodb://localhost:27017/",
+				"Collection": "industries"
+			}
+		},
+		{
+			"Name": "Company",
+			"Datasource":
+			{
+				"Type": "MongoDBCollection",
+				"DB": "mongodb://localhost:27017/",
+				"Collection": "companies"
+			}
+		},
+		{
+			"Name": "Site",
+			"Datasource":
+			{
+				"Type": "MongoDBCollection",
+				"DB": "mongodb://localhost:27017/",
+				"Collection": "sites"
+			}
+		},
+		{
+			"Name": "Person",
+			"Datasource":
+			{
+				"Type": "MongoDBCollection",
+				"DB": "mongodb://localhost:27017/",
+				"Collection": "people"
+			}
+		},
+		{
+			"Name": "Email",
+			"Datasource":
+			{
+				"Type": "MongoDBCollection",
+				"DB": "mongodb://localhost:27017/",
+				"Collection": "emails"
+			}
+		}
+	],
+	"LinkData":
+	[
+		{
+			"Source": "Company",
+			"Target": "Industry",
+			"Datasource":
+			{
+				"Type": "File",
+				"Path": "Assets/Resources/Datasets/company_industry.csv"
+			}
+		},
+		{
+			"Source": "Company",
+			"Target": "Site",
+			"Datasource":
+			{
+				"Type": "File",
+				"Path": "Assets/Resources/Datasets/company_site.csv"
+			}
+		},
+		{
+			"Source": "Site",
+			"Target": "Country",
+			"Datasource":
+			{
+				"Type": "File",
+				"Path": "Assets/Resources/Datasets/site_country.csv"
+			}
+		},
+		{
+			"Source": "Person",
+			"Target": "Site",
+			"Datasource":
+			{
+				"Type": "File",
+				"Path": "Assets/Resources/Datasets/person_site.csv"
+			}
+		},
+		{
+			"Source": "Email",
+			"Target": "Person",
+			"Datasource":
+			{
+				"Type": "File",
+				"Path": "Assets/Resources/Datasets/email_person.csv"
+			}
+		}
+	]
+}

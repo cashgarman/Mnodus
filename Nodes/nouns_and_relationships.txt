@@ -1,0 +1,32 @@
+Nouns:
+======
+Company
+Person
+Project
+Country
+Commodity
+Industry
+Site/Location
+Event
+Job
+Skill
+
+Relationships:
+==============
+Person > Job
+Person > Company
+Person > Site
+Person > Project
+Person > Event
+Person > Skill
+
+Company > Project
+Company > Industry
+Company > Job
+
+Project > Commodity
+Project > Site
+
+Site > Country
+
+Job > Skill
